@@ -8,7 +8,7 @@ ser.reset_input_buffer()
 ser.write(b"Server online\n")
 time.sleep(1)
 
-URL = 'http://192.168.11.135:5000/meteodata/create'
+URL = 'http://192.168.1.59:5000/meteodata/create'
 
 
 

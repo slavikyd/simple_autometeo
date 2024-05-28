@@ -148,4 +148,13 @@ void message(){
     Serial.println(pres / 132);
     Serial.println(hum);
   }
+  if (Serial.readStringUntil('\n') == "Data set"){
+    int max_data = Serial.parseInt();
+    int min_data = Serial.parseInt();
+    if (bme.readTemperature() <= min_data){
+      tone(piezoPin, 550, 500);
+    }  
+    else if (bme.readTemperature() >= max_data){
+      tone(piezoPin, 250, 500);
+}
 }
