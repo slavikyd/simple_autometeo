@@ -246,5 +246,6 @@ def plot():
 
     return render_template('graph.html', plot_div=plot_div)
 
+
 if __name__ == '__main__':
     app.run(port=FLASK_PORT)
