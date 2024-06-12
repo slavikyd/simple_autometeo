@@ -1,0 +1,23 @@
+<!doctype html>
+<title>{% block title %}{% endblock %} - Flaskr</title>
+<!-- <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> -->
+<nav>
+  <h1>Sigma sirius Weather-Api</h1>
+  <ul>
+      <li><a href="{{ url_for('meteo_get_all') }}">Json with meteodata</a>
+  </ul>
+  <div>
+    <ul><a>Temperature: {{ temp }}</a></ul>
+    <ul><a>Pressure: {{ pres }}</a></ul>
+    <ul><a>Humidity: {{ hum }}</a></ul>
+</div>
+</nav>
+<section class="content">
+  <header>
+    {% block header %}{% endblock %}
+  </header>
+  {% for message in get_flashed_messages() %}
+    <div class="flash">{{ message }}</div>
+  {% endfor %}
+  {% block content %}{% endblock %}
+</section>

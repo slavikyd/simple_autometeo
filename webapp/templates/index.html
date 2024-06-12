@@ -1,15 +1,18 @@
 <!doctype html>
 <title>{% block title %}{% endblock %} - Flaskr</title>
-<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<!-- <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"> -->
 <nav>
+  
   <h1>Flask test</h1>
-  <ul>
-      <li><a href="{{ url_for('meteo_get') }}">Json with meteodata</a>
-  </ul>
+
   <div>
     <ul><a>Temperature: {{ temp }}</a></ul>
     <ul><a>Pressure: {{ pres }}</a></ul>
     <ul><a>Humidity: {{ hum }}</a></ul>
+    <ul><a>Written: {{ created }}</a></ul>
+    <br>
+    <br>
+    <a href={{ url_for('plot') }}>Graphs</a>
 </div>
 </nav>
 <section class="content">

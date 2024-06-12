@@ -3,6 +3,12 @@ QUERY_GET_DATA = """
 select * from meteo.meteodata;
 
 """
+QUERY_GET_DATA_SINGLE = """SELECT *
+  FROM meteo.meteodata
+  ORDER BY created DESC
+  LIMIT 1;
+
+"""
 
 QUERY_DATA_CREATE = """
 insert into meteo.meteodata(temperature, humidity, pressure, created)

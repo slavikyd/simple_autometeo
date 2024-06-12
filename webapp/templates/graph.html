@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Graph</title>
+</head>
+<body>
+    
+    <h1>Your graph:</h1>
+    <a href={{ url_for('welcomepage') }}>Main page</a>
+
+    <form method="POST" action="/meteodata/graph">
+        <label for="graph">Choose type of graph:</label>
+        <select name="graph" id="graph">
+            <option value="Temperature by hours">Temperature by hours</option>
+            <option value="Temperature by days">Temperature by days</option>
+            <option value="Temperature by months">Temperature by months</option>
+            <option value="Pressure by days">Pressure by days</option>
+            <option value="Pressure by months">Pressure by months</option>
+            <option value="Humidity by days">Humidity by days</option>
+            <option value="Humidity by months">Humidity by months</option>
+        </select>
+        <input type="submit" value="Create graph">
+    </form>
+    {{ plot_div | safe }}
+</body>
+</html>

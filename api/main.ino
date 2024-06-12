@@ -2,6 +2,7 @@
 #include <GyverBME280.h>
 #define btn 2
 #define mainDELAY 2500
+#define COMPLICATED_CONST 132
 GyverBME280 bme;
 GyverOLED<SSD1306_128x64, OLED_NO_BUFFER> oled;
 
@@ -73,7 +74,7 @@ void screenSetState1(){
   oled.setCursor(0,5);
   oled.setScale(1);
   oled.print("Давление: ");
-  oled.print(pres / 132);
+  oled.print(pres / COMPLICATED_CONST);
   oled.setCursor(0,7);  
   oled.print("Влажность: ");
   oled.print(hum);
@@ -98,7 +99,7 @@ void screenSetState3(){
   oled.setCursor(0,2);
   oled.print("Давление: ");
   oled.setCursor(0,5);
-  oled.print(pres / 132);
+  oled.print(pres / COMPLICATED_CONST);
 }
 
 void screenSetState4(){
@@ -145,7 +146,7 @@ void message(){
   float hum = bme.readHumidity();
   if (Serial.readStringUntil('\n') == "Data request"){
     Serial.println(temp);
-    Serial.println(pres / 132);
+    Serial.println(pres / COMPLICATED_CONST);
     Serial.println(hum);
   }
   if (Serial.readStringUntil('\n') == "Data set"){
