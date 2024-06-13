@@ -41,7 +41,7 @@ jobs:
           cd tests
           ping 127.0.0.1 -c 4
           pytest test_api.py
-          pkill gunicorn
+          pkill gunicorn > /dev/null
       - name: Dependencies install and test webapp
         env:
             POSTGRES_PASSWORD: test
