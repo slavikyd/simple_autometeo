@@ -102,6 +102,40 @@ def create_meteodata():
     return result, http_code.OK
 
 
+@app.put('/meteodata/update')
+def update_meteo():
+    """Post request handler used to update conferences.
+
+    Returns:
+        str: empty string
+        int: http-code answre
+    """
+    body = request.json
+
+    id_ = body['id']
+    temperature = body['temperature']
+    humidity = body['humidity']
+    pressure = body['pressure']
+    created = body['created']
+
+    query = SQL(dbquery.QUERY_DATA_UPDATE).format(
+        temperature=Literal(temperature),
+        humidity=Literal(humidity),
+        pressure=Literal(pressure),
+        created=Literal(created),
+        id=Literal(id_),
+        )
+
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+        result = cursor.fetchall()
+
+    if len(result) == 0:
+        return '', http_code.NOT_FOUND
+
+    return '', http_code.NO_CONTENT
+
+
 @app.delete('/meteodata/delete')
 def delete_meteodata():
     """Post request handler used to delete data.

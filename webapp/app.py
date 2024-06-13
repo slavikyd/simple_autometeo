@@ -116,6 +116,22 @@ def meteo_get_inner():
         return http_code.SERVER_ERROR
 
 
+@app.get('/inner/meteodata/get')
+def meteo_get_single_inner():
+    """Db record getter.
+
+    Returns:
+        dict of values and http_code if success or http_code 500 if failed
+    """
+    try:
+        with connection.cursor() as cursor:
+            cursor.execute(dbquery.QUERY_GET_DATA_SINGLE)
+            return cursor.fetchall(), http_code.OK
+    except OperationalError:
+        return http_code.SERVER_ERROR
+
+
+
 @app.post('/inner/meteodata/create')
 def create_meteodata():
     """Post request handler for conferences.
@@ -202,7 +218,7 @@ def plot():
     elif graph == 'Temperature by hours':
         temp = data_handler.values_by_hours(data)
         dict_values = list(temp.values())
-        x = [key.month for key in temp.keys()]
+        x = [key[1] for key in temp.keys()]
         y = [int(temp['average_temperature']) for temp in dict_values]
         fig = go.Figure(data=go.Scatter(x=x, y=y))
         fig.update_layout(title='temperature_by_hours')
@@ -216,7 +232,7 @@ def plot():
     elif graph == 'Pressure by months':
         temp = data_handler.avgs_by_date(data)
         dict_values = list(temp.values())
-        x = [key.month for key in temp.keys()]
+        x = [key[1] for key in temp.keys()]
         y = [int(temp['average_pressure']) for temp in dict_values]
         fig = go.Figure(data=go.Scatter(x=x, y=y))
         fig.update_layout(title='pressure_by_months')
@@ -230,7 +246,7 @@ def plot():
     elif graph == 'Humidity by months':
         temp = data_handler.avgs_by_date(data)
         dict_values = list(temp.values())
-        x = [key.month for key in temp.keys()]
+        x = [key[1] for key in temp.keys()]
         y = [int(temp['average_humidity']) for temp in dict_values]
         fig = go.Figure(data=go.Scatter(x=x, y=y))
         fig.update_layout(title='humidity_by_months')

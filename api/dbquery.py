@@ -17,3 +17,14 @@ returning id
 """
 
 QUERY_DELETE_DATA = 'delete from meteo.meteodata where id = {id} returning id'
+
+QUERY_DATA_UPDATE = """
+update meteo.meteodata
+set
+  temperature = {temperature},
+  humidity = {humidity},
+  pressure = {pressure}
+where id = {id}
+returning id
+
+"""

@@ -3,8 +3,10 @@ QUERY_GET_DATA = """
 select * from meteo.meteodata;
 
 """
-QUERY_GET_DATA_SINGLE = """
-select * from meteo.meteodata limit 1;
+QUERY_GET_DATA_SINGLE = """SELECT *
+  FROM meteo.meteodata
+  ORDER BY created DESC
+  LIMIT 1;
 
 """
 QUERY_DATA_CREATE = """
