@@ -8,11 +8,11 @@ jobs:
         postgres:
           image: postgres
           env:
-          POSTGRES_PASSWORD: test
-          POSTGRES_DBNAME: postgres
-          POSTGRES_USER: test
-          POSTGRES_PORT: 5432
-          POSTGRES_HOST: 127.0.0.1
+            POSTGRES_PASSWORD: test
+            POSTGRES_DBNAME: postgres
+            POSTGRES_USER: test
+            POSTGRES_PORT: 5432
+            POSTGRES_HOST: 127.0.0.1
         ports:
         - 5432:5432
       steps:
