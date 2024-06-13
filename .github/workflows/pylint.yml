@@ -1,6 +1,33 @@
 name: flake8
 on: [push]
 jobs:
+  container-job:
+      name: Tests
+      runs-on: ubuntu-latest
+      services:
+        postgres:
+          image: postgres
+          env:
+            POSTGRES_PASSWORD: test
+            POSTGRES_DBNAME: postgres
+            POSTGRES_USER: test
+            POSTGRES_PORT: 5555
+            POSTGRES_HOST: 127.0.0.1
+          ports:
+          - 5555:5432
+      steps:
+      - uses: actions/checkout@v2
+      - name: Python setup
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.11.4"
+      - name: Dependencies install
+        run: |
+          python -m pip install --upgrade pip
+          cd tests
+          pip install -r requirements.txt
+          python -m pip install pytest
+          pytest
   linter_api_and_tests:
     name: linter api
     runs-on: ubuntu-latest
@@ -50,30 +77,4 @@ jobs:
         flake8 extras.py
         flake8 http_code.py
         flake8 data_handler.py
-    container-job:
-      name: Tests
-      runs-on: ubuntu-latest
-      services:
-        postgres:
-          image: postgres
-          env:
-            POSTGRES_PASSWORD: test
-            POSTGRES_DBNAME: postgres
-            POSTGRES_USER: test
-            POSTGRES_PORT: 5555
-            POSTGRES_HOST: 127.0.0.1
-          ports:
-          - 5555:5432
-      steps:
-      - uses: actions/checkout@v2
-      - name: Python setup
-        uses: actions/setup-python@v2
-        with:
-          python-version: "3.11.4"
-      - name: Dependencies install
-        run: |
-          python -m pip install --upgrade pip
-          cd tests
-          pip install -r requirements.txt
-          python -m pip install pytest
-          pytest
+    
