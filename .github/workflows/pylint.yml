@@ -41,7 +41,6 @@ jobs:
           cd tests
           ping 127.0.0.1 -c 4
           pytest test_api.py
-          pkill gunicorn > /dev/null
       - name: Dependencies install and test webapp
         env:
             POSTGRES_PASSWORD: test
@@ -49,7 +48,7 @@ jobs:
             POSTGRES_USER: test
             POSTGRES_PORT: 5555
             POSTGRES_HOST: 127.0.0.1
-            FLASK_PORT: 5000
+            FLASK_PORT: 5001
         run: |
           cd webapp
           python3 -m gunicorn --bind=127.0.0.1:${FLASK_PORT} app:app -w=4 --daemon
