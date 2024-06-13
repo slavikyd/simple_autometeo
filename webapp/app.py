@@ -131,7 +131,6 @@ def meteo_get_single_inner():
         return http_code.SERVER_ERROR
 
 
-
 @app.post('/inner/meteodata/create')
 def create_meteodata():
     """Post request handler for conferences.
