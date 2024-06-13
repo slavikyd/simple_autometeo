@@ -22,6 +22,12 @@ jobs:
         with:
           python-version: "3.11.4"
       - name: Dependencies install and test api
+        env:
+              POSTGRES_PASSWORD: test
+              POSTGRES_DBNAME: postgres
+              POSTGRES_USER: test
+              POSTGRES_PORT: 5555
+              POSTGRES_HOST: 127.0.0.1
         run: |
           PGPASSWORD=test psql -h 127.0.0.1 -p 5555 -d postgres -U test -c 'create extension if not exists "uuid-ossp"; create schema meteo; create table meteo.meteodata(id uuid primary key default uuid_generate_v4(),temperature float,humidity float,pressure float,created timestamp);' 
           python -m pip install --upgrade pip
