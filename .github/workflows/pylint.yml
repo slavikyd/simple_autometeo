@@ -28,17 +28,18 @@ jobs:
             POSTGRES_USER: test
             POSTGRES_PORT: 5555
             POSTGRES_HOST: 127.0.0.1
+            FLASK_PORT: 5000
         run: |
           PGPASSWORD=test psql -h 127.0.0.1 -p 5555 -d postgres -U test -c 'create extension if not exists "uuid-ossp"; create schema meteo; create table meteo.meteodata(id uuid primary key default uuid_generate_v4(),temperature float,humidity float,pressure float,created timestamp);' 
           python3 -m pip install --upgrade pip
           pip install -r tests/requirements.txt
           cd api
+          python3 -m pip install pytest
           pip install gunicorn
           python3 -m gunicorn --bind=127.0.0.1:${FLASK_PORT} app:app -w=4 --daemon
           cd ..
           cd tests
           ping 127.0.0.1 -c 4
-          python3 -m pip install pytest
           pytest test_api.py
       - name: Dependencies install and test webapp
         run: |
