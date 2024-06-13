@@ -37,6 +37,7 @@ jobs:
           python3 -m gunicorn --bind=127.0.0.1:${FLASK_PORT} app:app -w=4 --daemon
           cd ..
           cd tests
+          ping 127.0.0.1:5000 -c 4
           python3 -m pip install pytest
           pytest test_api.py
       - name: Dependencies install and test webapp
