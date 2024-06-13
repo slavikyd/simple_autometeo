@@ -13,8 +13,8 @@ jobs:
             POSTGRES_USER: test
             POSTGRES_PORT: 5432
             POSTGRES_HOST: 127.0.0.1
-        ports:
-        - 5432:5432
+          ports:
+          - 5432:5432
       steps:
       - uses: actions/checkout@v2
       - name: Python setup
