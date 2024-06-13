@@ -36,6 +36,7 @@ jobs:
           pip install flask
           pip install gunicorn
           gunicorn project:app --daemon
+          cd ..
           cd tests
           python -m pip install pytest
           pytest test_api.py
@@ -45,7 +46,8 @@ jobs:
           pip install -r tests/requirements.txt
           cd webapp
           pip install flask
-          python3 -m flask run &
+          gunicorn project:app --daemon
+          cd ..
           cd tests
           python -m pip install pytest
           pytest test_webapp.py
