@@ -76,23 +76,6 @@ def test_create_func(json_create: dict, valid_json: tuple) -> None:
     assert response == valid_json
 
 
-@pytest.mark.parametrize('status_code', test_delete)
-def test_delete_func(status_code: int) -> None:
-    """REST delete test.
-
-    Args:
-        status_code (int): awaited response code
-    """
-    response = requests.get('http://localhost:5000/meteodata/get', timeout=TOUT).json()
-    response_id = response[0]['id']
-    response_code = requests.delete(
-        'http://127.0.0.1:5000/meteodata/delete',
-        json={'id': response_id},
-        timeout=TOUT,
-        ).status_code
-    assert response_code == status_code
-
-
 @pytest.mark.parametrize('sample, code', test_update_data)
 def test_update(sample: dict, code: int) -> None:
     """REST update test.
@@ -109,3 +92,20 @@ def test_update(sample: dict, code: int) -> None:
         timeout=TOUT,
         ).status_code
     assert response_code == code
+
+
+@pytest.mark.parametrize('status_code', test_delete)
+def test_delete_func(status_code: int) -> None:
+    """REST delete test.
+
+    Args:
+        status_code (int): awaited response code
+    """
+    response = requests.get('http://localhost:5000/meteodata/get', timeout=TOUT).json()
+    response_id = response[0]['id']
+    response_code = requests.delete(
+        'http://127.0.0.1:5000/meteodata/delete',
+        json={'id': response_id},
+        timeout=TOUT,
+        ).status_code
+    assert response_code == status_code
