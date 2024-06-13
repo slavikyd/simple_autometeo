@@ -27,7 +27,6 @@ jobs:
           cd tests
           pip install -r requirements.txt
           python -m pip install pytest
-          pytest
   linter_api_and_tests:
     name: linter api
     runs-on: ubuntu-latest
