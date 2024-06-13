@@ -1,4 +1,4 @@
-name: flake8
+name: Tests and Linter
 on: [push]
 jobs:
   container-job:
