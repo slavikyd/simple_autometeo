@@ -23,33 +23,28 @@ jobs:
           python-version: "3.11.4"
       - name: Dependencies install and test api
         env:
-              POSTGRES_PASSWORD: test
-              POSTGRES_DBNAME: postgres
-              POSTGRES_USER: test
-              POSTGRES_PORT: 5555
-              POSTGRES_HOST: 127.0.0.1
+            POSTGRES_PASSWORD: test
+            POSTGRES_DBNAME: postgres
+            POSTGRES_USER: test
+            POSTGRES_PORT: 5555
+            POSTGRES_HOST: 127.0.0.1
         run: |
           PGPASSWORD=test psql -h 127.0.0.1 -p 5555 -d postgres -U test -c 'create extension if not exists "uuid-ossp"; create schema meteo; create table meteo.meteodata(id uuid primary key default uuid_generate_v4(),temperature float,humidity float,pressure float,created timestamp);' 
-          python -m pip install --upgrade pip
+          python3 -m pip install --upgrade pip
           pip install -r tests/requirements.txt
           cd api
-          pip install flask
           pip install gunicorn
-          gunicorn project:app --daemon
+          python3 -m gunicorn --bind=127.0.0.1:${FLASK_PORT} app:app -w=4 --daemon
           cd ..
           cd tests
-          python -m pip install pytest
+          python3 -m pip install pytest
           pytest test_api.py
       - name: Dependencies install and test webapp
         run: |
-          python -m pip install --upgrade pip
-          pip install -r tests/requirements.txt
           cd webapp
-          pip install flask
-          gunicorn project:app --daemon
+          python3 -m gunicorn --bind=127.0.0.1:${FLASK_PORT} app:app -w=4 --daemon
           cd ..
           cd tests
-          python -m pip install pytest
           pytest test_webapp.py
           
   linter_api_and_tests:
